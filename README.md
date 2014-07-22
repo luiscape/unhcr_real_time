@@ -3,7 +3,7 @@ UNHCR 'Real-time' to HDX Format
 
 Converting the data scraped from UNHCR into HDX' "format".
 
-![Plot of all indicators]('plot.png')
+![Plot of all indicators](plot.png)
 
 
 Issues
