@@ -1,0 +1,149 @@
+<html>
+  <head>
+    <link href="css/c3.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+  <div class="container">
+    <div class="section">
+        <h2><span>UNHCR Information Portal Data</span></h2>
+          <p>UNHCR maintains a number of information portals with <strong>near real-time data</strong> about refugee crises around the world. </p>
+
+          <p>Here we can compare the slow but constant increase of the number of refugees from Syria to the sudden spike in refugee numbers from the Central African Republic. Note by interacting with the carts that the UNHCR portals provide data about the Syria crisis every two days, while it provides data about refugees from CAR on a weekly basis.</p>
+
+          <p>Also note that the charts only include refugee numbers, and not numbers about internally displaced people and other people of concern.</p>
+
+          <p>All the data used in this charts is available both in the <a href='http://data.hdx.rwlabs.org/'>Humanitarian Data Exchange portal</a> and on <a href='http://data.unhcr.org'>UNHCR Information Portal website</a>.</p>
+          <br />
+          <br />
+        <div>
+          <div class="row">
+            <div class="col-md-6">
+                <h4>Registered Syrian Refugees</h4>
+                <!-- <p>Chart that displays the number of datasets in the system.</p> -->
+                <div id="chart1"></div>
+            </div>
+              <div class="col-md-6">
+                <h4>Refugees from the Central African Republic</h4>
+                <!-- <p>Chart with the number of organizations and users in the system.</p> -->
+                <div id="chart2"></div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+<style>
+#chart1 .c3-line {
+  stroke-width: 3px;
+}
+#chart2 .c3-line {
+  stroke-width: 3px;
+}
+</style>
+
+    <script src="js/d3.v3.min.js" charset="utf-8"></script>
+    <script src="js/c3.js"></script>
+    <script>
+
+      var chart1 = c3.generate({
+        bindto: '#chart1',
+        data: {
+          x: 'date',
+          x_format : '%Y-%m-%d',
+          url: 'data/syria.csv',
+          names: {
+            n_refugees: 'Number of Registered Syrian Refugees'
+          },
+          type: 'spline',
+          labels: false,
+          selection: {
+            enabled: false,
+            grouped: false,
+            multiple: false,
+          },
+          colors: {
+            n_refugees: '#f2645a'
+          }
+        },
+        point : {
+          show: false
+        },
+         axis : {
+          x : {
+            type : 'timeseries',
+            tick : {
+              format : "%e %b %y"
+            },
+            show: false
+          },
+          y : {
+            show: false
+          }
+        },
+        grid : {
+          y: {
+            show: true
+          }
+        },
+        tooltip: {
+          format: {
+            value: function (value, ratio, id) {
+                var format = id === 'n_refugees' ? d3.format(',') : d3.format('$');
+                return format(value);
+            }
+          }
+        }
+      });
+
+      var chart2 = c3.generate({
+        bindto: '#chart2',
+        data: {
+          x: 'date',
+          x_format : '%Y-%m-%d',
+          url: 'data/car.csv',
+          names: {
+            n_refugees: 'Number of Refugees from the Central African Republic',
+            Number_of_Users: 'Number of Users'
+          },
+          type: 'line',
+          labels: false,
+          selection: {
+            enabled: false,
+            grouped: false,
+            multiple: false,
+          },
+        },
+        point : {
+          show: false
+        },
+         axis : {
+          x : {
+            type : 'timeseries',
+            tick : {
+              format : "%e %b %y"
+            },
+            show: false
+          },
+          y : {
+            show: false
+          },
+        },
+        grid : {
+            y : {
+              show: true
+            }
+          },
+        tooltip: {
+          format: {
+            value: function (value, ratio, id) {
+                var format = id === 'n_refugees' ? d3.format(',') : d3.format('$');
+                return format(value);
+            }
+          }
+        }
+      });
+
+    </script>
+  </body>
+</html>
